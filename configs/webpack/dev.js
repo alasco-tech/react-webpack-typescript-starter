@@ -8,6 +8,9 @@ module.exports = merge(commonConfig, {
   devServer: {
     hot: true, // enable HMR on the server
     historyApiFallback: true, // fixes error 404-ish errors when using react router :see this SO question: https://stackoverflow.com/questions/43209666/react-router-v4-cannot-get-url
+    // host: "0.0.0.0",
+    allowedHosts: "all",
+    // public: "gitpod.io", // That solved it
   },
   devtool: "cheap-module-source-map",
   plugins: [new ReactRefreshPlugin()],

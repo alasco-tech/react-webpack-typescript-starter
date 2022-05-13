@@ -1,6 +1,7 @@
 // shared config (dev and prod)
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
   entry: "./index.tsx",
@@ -32,5 +33,16 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: "index.html.ejs" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "index.html.ejs" }),
+    new ModuleFederationPlugin({
+      name: "microfe",
+      // library: { type: 'var', name: 'app2' },
+      filename: "remoteEntry.js",
+      exposes: {
+        "./App": "../src/components/App",
+      },
+      // shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+    }),
+  ],
 };
